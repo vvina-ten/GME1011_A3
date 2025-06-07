@@ -10,18 +10,50 @@ namespace GME1011A3
             //Epic battle goes here :)
             Random rng = new Random();
 
-            Fighter hero = new Fighter(100, "Aaron", 5); //TODO: Get these arguments from the user - health, name, strength
+
+
+            Console.WriteLine("About your hero ");
+            
+            Console.Write("Hero's name: ");
+            String heroname = Console.ReadLine();
+
+            Console.Write("Hero's haelth: ");
+            int herohealth = int.Parse(Console.ReadLine());
+            if (herohealth <= 0)
+            {
+                Console.WriteLine("Your hero should be alive.");
+                Console.Write("Hero's haelth: ");
+                herohealth = int.Parse(Console.ReadLine());
+            }
+
+            Console.Write("Hero's strength: ");
+            int herostrength = int.Parse(Console.ReadLine());
+            if (herostrength <= 0)
+            {
+                Console.WriteLine("Your hero should be powerful.");
+                Console.Write("Hero's strength: ");
+                herostrength = int.Parse(Console.ReadLine());
+            }
+
+            Fighter hero = new Fighter(herohealth, heroname, herostrength);
+                                                    //TODO: Get these arguments from the user - health, name, strength
             Console.WriteLine("Here is our heroic hero: " + hero + "\n\n");
 
-
-            int numBaddies = 5; //TODO: Get number of baddies from the user
+            Console.Write("Baddie's number: ");
+            int numBaddies = int.Parse(Console.ReadLine());
+            if (numBaddies <= 0)
+            {
+                Console.WriteLine("Your hero should has enemy.");
+                Console.Write("Baddie's number: ");
+                numBaddies = int.Parse(Console.ReadLine());
+            }
+                                                    //TODO: Get number of baddies from the user
             int numAliveBaddies = numBaddies;
 
+            
 
             //TODO: change this so that it can contain goblins and skellies! Just change the type of the list!!
             List<Goblin> baddies = new List<Goblin>();
-
-
 
             for (int i = 0; i < numBaddies; i++)
             {
