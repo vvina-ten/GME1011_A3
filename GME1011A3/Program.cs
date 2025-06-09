@@ -26,12 +26,12 @@ namespace GME1011A3
                 herohealth = int.Parse(Console.ReadLine());
             }
 
-            Console.Write("Hero's strength: ");
+            Console.Write("Hero's strength (max 10): ");
             int herostrength = int.Parse(Console.ReadLine());
             if (herostrength <= 0)
             {
                 Console.WriteLine("Your hero should be powerful.");
-                Console.Write("Hero's strength: ");
+                Console.Write("Hero's strength (max 10): ");
                 herostrength = int.Parse(Console.ReadLine());
             }
             
@@ -104,12 +104,13 @@ namespace GME1011A3
                 }
 
                 //hero deals damage first
-                Console.WriteLine(hero.GetName() + " is attacking enemy #" + (indexOfEnemy+1) + " of " + numBaddies + ". Eek, it's a " + baddies[indexOfEnemy].GetType().Name);
+                Console.WriteLine(hero.GetName() + " is attacking enemy #" + (indexOfEnemy+1) + " of " 
+                    + numBaddies + ". Eek, it's a " + baddies[indexOfEnemy].GetType().Name);
                 int heroDamage = hero.DealDamage();  //how much damage?
 
 
 
-                Console.WriteLine("Now " + heroname + "has strength: " + herostrength);
+                Console.WriteLine("Now " + heroname + "has strength: " + hero.GetStrength());      //update!!
 
                 int percent= rng.Next(1,101);
 
@@ -120,7 +121,7 @@ namespace GME1011A3
                     if (heroDamage > 0)
                     {
                         Console.WriteLine("Hero deals " + heroDamage + " special heroic damage.");
-                        Console.WriteLine("Now " + heroname + "has strength: " + herostrength);
+                        Console.WriteLine("Now " + heroname + "has strength: " + hero.GetStrength());         //update!!
                     }
                     else
                     {
@@ -156,6 +157,13 @@ namespace GME1011A3
                 //NOTE to coders - armour affects how much damage goblins take, and skellies take
                 //half damage - remember that when reviewing the output
 
+
+
+
+
+
+
+
                 //did we vanquish the baddie we were battling?
                 if (baddies[indexOfEnemy].isDead())
                 {
@@ -164,16 +172,41 @@ namespace GME1011A3
                 }
                 else //baddie survived, now attacks the hero
                 {
-                    int baddieDamage = baddies[indexOfEnemy].DealDamage();  //how much damage?
-                    Console.WriteLine("Enemy #" + (indexOfEnemy+1) + " deals " + baddieDamage + " damage!");
-                    hero.TakeDamage(baddieDamage); //hero takes damage
+                    //      int baddieDamage = baddies[indexOfEnemy].DealDamage();  //how much damage?
+                    //      Console.WriteLine("Enemy #" + (indexOfEnemy+1) + " deals " + baddieDamage + " damage!");
+                    //      hero.TakeDamage(baddieDamage); //hero takes damage
+
+                    int polyenemy = rng.Next(1,101);
+                    int baddieDamage;
+
+                    if (polyenemy <= 33) 
+                    {
+                        if (baddies[indexOfEnemy].GetType() == typeof(Goblin))
+                        {
+                            baddieDamage = ((Goblin)baddies[indexOfEnemy]).GoblinBite();
+                            Console.WriteLine("Enemy #" + (indexOfEnemy + 1) + " deals " + baddieDamage + " damage!");
+                        }
+                        else if (baddies[indexOfEnemy].GetType() == typeof(Skellie))
+                        {
+                            baddieDamage = ((Skellie)baddies[indexOfEnemy]).SkellieRattle();
+                            Console.WriteLine("Enemy #" + (indexOfEnemy + 1) + " deals " + baddieDamage + " damage!");
+                        }
+                            
+                    }
+                    else
+                    {
+                        baddieDamage = baddies[indexOfEnemy].DealDamage(); 
+                        Console.WriteLine("Enemy #" + (indexOfEnemy + 1) + " deals " + baddieDamage + " damage!");
+                    }
+
+
+
 
 
 
 
                     //TODO: The baddie doesn't ever use their special attack - but they should. Change the above to 
                     //have a 33% chance that the baddie uses their special, and 67% that they use their regular attack.
-                    
 
 
 
@@ -185,6 +218,15 @@ namespace GME1011A3
                     }
 
                 }
+
+
+
+
+
+
+
+
+
                 Console.WriteLine("-----------------------------------------");
             }
             //if we made it this far, the hero is victorious! (that's what the message says.
