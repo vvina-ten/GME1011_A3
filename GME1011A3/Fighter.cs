@@ -27,13 +27,20 @@ namespace GME1011A3
 
         }
 
+
+
+
         //Fighters do their own damage, so let's override the Hero's version
         //There are lots of ways to do this.
+                                       //regular attack?
         public override int DealDamage()
         {
             Random rng = new Random();
             return rng.Next(8, 15);
         }
+
+
+
 
         //Unlike the Healer, the Fighter has the same Heal method as a default hero. 
         //So, we don't override it
@@ -45,7 +52,11 @@ namespace GME1011A3
         //Max out at 10, just because
         public void AddStrength() { if (this.strength <= 9) strength++; }
 
-        //Special move for the Fighter:
+                         
+        
+
+        
+                                     //Special move for the Fighter:
         public int Berserk()
         {
             if (strength > 0)
@@ -59,6 +70,9 @@ namespace GME1011A3
                 return 0; //no strength, no berserk
             }
         }
+
+
+
 
         //Override the ToString so that it works better for our Fighter
         public override string ToString()

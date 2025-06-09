@@ -34,7 +34,7 @@ namespace GME1011A3
                 Console.Write("Hero's strength: ");
                 herostrength = int.Parse(Console.ReadLine());
             }
-
+            
             Fighter hero = new Fighter(herohealth, heroname, herostrength);
                                                     //TODO: Get these arguments from the user - health, name, strength
             Console.WriteLine("Here is our heroic hero: " + hero + "\n\n");
@@ -106,13 +106,45 @@ namespace GME1011A3
                 //hero deals damage first
                 Console.WriteLine(hero.GetName() + " is attacking enemy #" + (indexOfEnemy+1) + " of " + numBaddies + ". Eek, it's a " + baddies[indexOfEnemy].GetType().Name);
                 int heroDamage = hero.DealDamage();  //how much damage?
-                Console.WriteLine("Hero deals " + heroDamage + " heroic damage."); 
+
+
+
+                Console.WriteLine("Now " + heroname + "has strength: " + herostrength);
+
+                int percent= rng.Next(1,101);
+
+                if (percent <= 33) 
+                {
+                   heroDamage = hero.Berserk();
+
+                    if (heroDamage > 0)
+                    {
+                        Console.WriteLine("Hero deals " + heroDamage + " special heroic damage.");
+                        Console.WriteLine("Now " + heroname + "has strength: " + herostrength);
+                    }
+                    else
+                    {
+                        Console.WriteLine("No STRENGTH !!!");
+                        heroDamage = hero.DealDamage();
+                        Console.WriteLine("Hero deals " + heroDamage + " regular heroic damage.");
+                    }
+
+                }
+
+                else
+                {
+                    heroDamage = hero.DealDamage();
+                    Console.WriteLine("Hero deals " + heroDamage + " regular heroic damage.");
+                }
+
+
+
+
+
                 baddies[indexOfEnemy].TakeDamage(heroDamage); //baddie takes the damage
 
 
-
-
-                //TODO: The hero doesn't ever use their special attack - but they should. Change the above to 
+                                                       //TODO: The hero doesn't ever use their special attack - but they should. Change the above to 
                 //have a 33% chance that the hero uses their special, and 67% that they use their regular attack.
                 //If the hero doesn't have enough special power to use their special attack, they do their regular 
                 //attack instead - but make a note of it in the output. There's no way for the hero to get more special

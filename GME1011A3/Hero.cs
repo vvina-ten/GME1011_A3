@@ -11,6 +11,7 @@ namespace GME1011A3
         //superclass (or base class) attributes
         protected int health;
         private string name;
+        private int Attack;
 
         //zero-argument constructor
         public Hero()
@@ -57,5 +58,9 @@ namespace GME1011A3
             return "Hero[" + health + ", " + name + "]";    
         }
 
+
+
+        // I want add public int attack but there already has one.
+        
     }
 }
