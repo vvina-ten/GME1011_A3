@@ -60,20 +60,24 @@ namespace GME1011A3
                
 
 
-                int j = rng.Next(0,2);
+                int j = rng.Next(0,3);
 
                 if (j == 0)
                 {
                     baddies.Add(new Goblin(rng.Next(30, 35), rng.Next(1, 5), rng.Next(1, 10)));
-                                                              //(int health, int armour, int dexterity)
+                    //(int health, int armour, int dexterity)
+                }
+
+                else if (j == 1)
+                {
+                    baddies.Add(new Skellie(rng.Next(25, 31), 0));
+                    //(int health, int armour)
                 }
 
                 else 
                 {
-                    baddies.Add(new Skellie(rng.Next(25, 31), 0));
-                                                              //(int health, int armour)
+                    baddies.Add(new Asir(rng.Next(30, 35), 5));
                 }
-
 
 
                                                  //TODO: each baddie should have 50% chance of being a goblin, 50% chance of
@@ -177,7 +181,7 @@ namespace GME1011A3
                     //      hero.TakeDamage(baddieDamage); //hero takes damage
 
                     int polyenemy = rng.Next(1,101);
-                    int baddieDamage;
+                    int baddieDamage = 0 ;
 
                     if (polyenemy <= 33) 
                     {
@@ -186,12 +190,18 @@ namespace GME1011A3
                             baddieDamage = ((Goblin)baddies[indexOfEnemy]).GoblinBite();
                             Console.WriteLine("Enemy #" + (indexOfEnemy + 1) + " deals " + baddieDamage + " damage!");
                         }
+
                         else if (baddies[indexOfEnemy].GetType() == typeof(Skellie))
                         {
                             baddieDamage = ((Skellie)baddies[indexOfEnemy]).SkellieRattle();
                             Console.WriteLine("Enemy #" + (indexOfEnemy + 1) + " deals " + baddieDamage + " damage!");
                         }
-                            
+
+                        else if (baddies[indexOfEnemy].GetType() == typeof(Asir))
+                        {
+                            baddieDamage = ((Asir)baddies[indexOfEnemy]).AsirMeow();
+                            Console.WriteLine("Enemy #" + (indexOfEnemy + 1) + " deals " + baddieDamage + " damage!");
+                        }
                     }
                     else
                     {
@@ -199,7 +209,7 @@ namespace GME1011A3
                         Console.WriteLine("Enemy #" + (indexOfEnemy + 1) + " deals " + baddieDamage + " damage!");
                     }
 
-
+                    hero.TakeDamage(baddieDamage);
 
 
 
